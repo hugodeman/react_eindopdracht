@@ -1,15 +1,15 @@
 import {Link, useNavigate, useParams} from "react-router";
 import {useEffect, useState} from "react";
 
-function NoteDetail () {
+function GameDetail () {
     const params = useParams();
     const id = params.id
-    const [note,setNote] = useState(null);
+    const [game,setGame] = useState(null);
     const navigate = useNavigate();
 
-    async function fetchNote() {
+    async function fetchGame() {
         try {
-            const response = await fetch(`https://notes.basboot.nl/notes/${id}`,{
+            const response = await fetch(`http://145.24.223.147:8000/games/${id}`,{
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
@@ -18,19 +18,19 @@ function NoteDetail () {
 
             const data = await response.json();
             console.log(data)
-            setNote(data);
+            setGame(data);
         } catch (error) {
             console.error('Fout bij het ophalen van het product:', error);
         }
     }
 
     useEffect(() => {
-        fetchNote()
+        fetchGame()
     },[id])
 
-    async function deleteNote() {
+    async function deleteGame() {
         try {
-            const response = await fetch(`https://notes.basboot.nl/notes/${id}`,{
+            const response = await fetch(`http://145.24.223.147:8000/games/${id}`,{
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -40,34 +40,36 @@ function NoteDetail () {
 
             const data = await response.json();
             console.log(data)
-            navigate('/notes')
+            navigate('/games')
         } catch (error) {
             console.error('Fout bij het ophalen van het product:', error);
         }
     }
 
     const handleDelete = () => {
-        deleteNote(note.id);
+        deleteGame(game.id);
     }
 
     return(
         <>
-            {note ? (
+            {game ? (
                 <article
                     className="bg-white shadow-lg rounded-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <h2 className="text-xl font-bold text-gray-800 mb-2">{note.title}</h2>
-                    <p className="text-gray-600 mb-4">{note.body}</p>
-                    <small className="text-gray-500 block">By {note.author}</small>
+                    <h2 className="text-xl font-bold text-gray-800 mb-2">{game.title}</h2>
+                    <p className="text-gray-600 mb-4">{game.description}</p>
+                    <p className="text-gray-600 mb-4">{game.genre}</p>
+                    <p className="text-gray-600 mb-4">{game.producer}</p>
+                    <small className="text-gray-500 block">By {game.release_date}</small>
                     <div>
-                        <Link to={`/notes/${note.id}/edit`}>Edit Note</Link>
+                        <Link to={`/games/${game.id}/edit`}>Edit game</Link>
                     </div>
                     <button onClick={handleDelete}>
-                        Delete note
+                        Delete game
                     </button>
                 </article>
-            ):  (<p className="text-red-500">No note found.</p>)}
+            ) : (<p className="text-red-500">No game found.</p>)}
         </>
     )
 }
 
-export default NoteDetail;
+export default GameDetail;

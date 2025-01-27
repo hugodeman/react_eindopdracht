@@ -5,7 +5,7 @@ function Layout(){
         <>
             <header className="bg-blue-600 text-white py-4 shadow-md">
                 <div className="container mx-auto px-6 flex items-center justify-between">
-                    <h1 className="text-3xl font-bold">Notes - Les 3</h1>
+                    <h1 className="text-3xl font-bold">Games :Þ</h1>
                 </div>
             </header>
 
@@ -14,13 +14,10 @@ function Layout(){
                     <Link to="/" className="text-lg font-semibold hover:text-gray-300">
                         Home
                     </Link>
-                    <Link to="/about" className="text-lg font-semibold hover:text-gray-300">
-                        About
+                    <Link to="/games" className="text-lg font-semibold hover:text-gray-300">
+                        Games
                     </Link>
-                    <Link to="/notes" className="text-lg font-semibold hover:text-gray-300">
-                        Notes
-                    </Link>
-                    <Link to="/notes/create" className="text-lg font-semibold hover:text-gray-300">
+                    <Link to="/games/create" className="text-lg font-semibold hover:text-gray-300">
                         Create
                     </Link>
                 </div>

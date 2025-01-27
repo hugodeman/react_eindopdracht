@@ -2,10 +2,10 @@ import {createBrowserRouter, RouterProvider} from 'react-router';
 
 import Layout from "./Layout.jsx";
 import Home from "./Home.jsx";
-import Notes from "./Notes.jsx";
-import CreateNote from "./CreateNote.jsx";
-import NoteDetail from "./NoteDetail.jsx";
-import EditNote from "./EditNote.jsx";
+import Games from "./Games.jsx";
+import CreateGame from "./CreateGame.jsx";
+import GameDetail from "./GameDetail.jsx";
+import EditGame from "./EditGame.jsx";
 
 const router = createBrowserRouter([{
     element: <Layout />,
@@ -15,20 +15,20 @@ const router = createBrowserRouter([{
             element:<Home/>
         },
         {
-            path:'/notes',
-            element:<Notes/>
+            path:'/games',
+            element:<Games/>
         },
         {
-            path:'/notes/create',
-            element:<CreateNote/>
+            path:'/games/create',
+            element:<CreateGame/>
         },
         {
-            path:'/notes/:id',
-            element:<NoteDetail/>
+            path:'/games/:id',
+            element:<GameDetail/>
         },
         {
-            path:'/notes/:id/edit',
-            element:<EditNote/>
+            path:'/games/:id/edit',
+            element:<EditGame/>
 
         }
     ]

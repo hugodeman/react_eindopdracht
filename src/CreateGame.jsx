@@ -2,13 +2,15 @@ import {useState} from 'react';
 import {useNavigate} from "react-router";
 
 
-function CreateNote(){
+function CreateGame(){
     const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         title: '',
-        body: '',
-        author: ''
+        description: '',
+        genre: '',
+        producer: '',
+        release_date: ''
     });
 
     const handleInputChange = (event) => {
@@ -23,29 +25,31 @@ function CreateNote(){
         event.preventDefault(); // Voorkomt pagina-herladen
         console.log('Formulier verzonden:', formData);
 
-        await createNote(formData);
+        await createGame(formData);
 
         setFormData({
             title: '',
-            body: '',
-            author: '',
+            description: '',
+            genre: '',
+            producer: '',
+            release_date: ''
         });
     };
 
-    async function createNote(note) {
+    async function createGame(game) {
         try {
-            const response = await fetch('https://notes.basboot.nl/notes', {
+            const response = await fetch('http://145.24.223.147:8000/games', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(note)
+                body: JSON.stringify(game)
             });
 
             const data = await response.json();
             console.log(data);
-            navigate('/notes')
+            navigate('/games')
         } catch (error) {
             console.error('Er is een fout opgetreden:', error);
         }
@@ -67,30 +71,55 @@ function CreateNote(){
                     />
                 </div>
                 <div>
-                    <label htmlFor="body">Beschrijving:</label>
+                    <label htmlFor="description">Beschrijving:</label>
                     <input
                         type="text"
-                        id="body"
-                        name="body"
-                        value={formData.body}
+                        id="description"
+                        name="description"
+                        value={formData.description}
                         onChange={handleInputChange}
                         className={'bg-[#AAAAAA] opacity-50'}
 
                     />
                 </div>
                 <div>
-                    <label htmlFor="author">author:</label>
+                    <label htmlFor="genre">genre:</label>
                     <input
                         type="text"
-                        id="author"
-                        name="author"
-                        value={formData.author}
+                        id="genre"
+                        name="genre"
+                        value={formData.genre}
                         onChange={handleInputChange}
                         className={'bg-[#AAAAAA] opacity-50'}
 
                     />
                 </div>
-                <button type="submit"   className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
+                <div>
+                    <label htmlFor="producer">producer:</label>
+                    <input
+                        type="text"
+                        id="producer"
+                        name="producer"
+                        value={formData.producer}
+                        onChange={handleInputChange}
+                        className={'bg-[#AAAAAA] opacity-50'}
+
+                    />
+                </div>
+                <div>
+                    <label htmlFor="release_date">release_date:</label>
+                    <input
+                        type="text"
+                        id="release_date"
+                        name="release_date"
+                        value={formData.release_date}
+                        onChange={handleInputChange}
+                        className={'bg-[#AAAAAA] opacity-50'}
+
+                    />
+                </div>
+                <button type="submit"
+                        className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
                     Verzenden
                 </button>
             </form>
@@ -98,4 +127,4 @@ function CreateNote(){
     )
 }
 
-export default CreateNote;
+export default CreateGame;

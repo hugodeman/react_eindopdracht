@@ -1,17 +1,17 @@
-import Note from "./Note.jsx";
+import Game from "./Game.jsx";
 import {useEffect, useState} from "react";
 
-function Notes(){
-    const [notes,setNotes] = useState([])
-    const showNotes = notes.map((note) => (<Note key={note.id} note={note}/>))
+function Games(){
+    const [games,setGames] = useState([])
+    const showGames = games.map((game) => (<Game key={game.id} game={game}/>))
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [totalPages, setTotalPages] = useState(1);
 
-    async function fetchNotes() {
+    async function fetchGames() {
         try {
-            const response = await fetch(`https://notes.basboot.nl/notes?page=${currentPage}&limit=${itemsPerPage}`,{
+            const response = await fetch(`http://145.24.223.147:8000/games?page=${currentPage}&limit=${itemsPerPage}`,{
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
@@ -20,7 +20,7 @@ function Notes(){
 
             const data = await response.json();
             console.log(data)
-            setNotes(data.items);
+            setGames(data.items);
             setTotalPages(data.pagination.totalPages || 1);
         } catch (error) {
             console.error('Fout bij het ophalen van het product:', error);
@@ -28,7 +28,7 @@ function Notes(){
     }
 
     useEffect(() => {
-        fetchNotes()
+        fetchGames()
     }, [currentPage, itemsPerPage]);
 
     function previousPage(){
@@ -53,10 +53,10 @@ function Notes(){
     return(
         <>
             <div className="container mx-auto p-6">
-                <h1 className="text-3xl font-bold mb-6 text-gray-800">Notes</h1>
+                <h1 className="text-3xl font-bold mb-6 text-gray-800">Games</h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {showNotes}
+                    {showGames}
                 </div>
             </div>
             <div className="flex justify-between items-center mt-6">
@@ -100,4 +100,4 @@ function Notes(){
     )
 }
 
-export default Notes;
+export default Games;
