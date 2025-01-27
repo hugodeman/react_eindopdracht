@@ -1,4 +1,4 @@
-import {Link, useNavigate, useParams} from "react-router";
+import {Link, useNavigate, useParams, useResolvedPath, useRoutes} from "react-router";
 import {useEffect, useState} from "react";
 
 function GameDetail () {
@@ -47,25 +47,54 @@ function GameDetail () {
     }
 
     const handleDelete = () => {
-        deleteGame(game.id);
+        deleteGame(game.id).then(() => {
+            navigate('/games');
+        });
     }
 
     return(
         <>
             {game ? (
                 <article
-                    className="bg-white shadow-lg rounded-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <h2 className="text-xl font-bold text-gray-800 mb-2">{game.title}</h2>
-                    <p className="text-gray-600 mb-4">{game.description}</p>
-                    <p className="text-gray-600 mb-4">{game.genre}</p>
-                    <p className="text-gray-600 mb-4">{game.producer}</p>
-                    <small className="text-gray-500 block">By {game.release_date}</small>
-                    <div>
-                        <Link to={`/games/${game.id}/edit`}>Edit game</Link>
+                    className="bg-white shadow-lg rounded-lg p-6 transform transition duration-300 hover:shadow-2xl">
+
+                    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5">
+                        <div className="bg-white shadow-lg rounded-xl p-6 max-w-md w-full">
+                            <h1 className="text-3xl font-bold text-gray-800 mb-4">{game.title}</h1>
+                            <div className="space-y-4">
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700">Description:</h2>
+                                    <p className="text-gray-600">{game.description}</p>
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700">Genre:</h2>
+                                    <p className="text-gray-600">{game.genre}</p>
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700">Producer:</h2>
+                                    <p className="text-gray-600">{game.producer}</p>
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700">Release Date:</h2>
+                                    <p className="text-gray-600">{game.release_date}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button onClick={handleDelete}>
-                        Delete game
-                    </button>
+                    <div className="flex items-center space-x-4 mt-6">
+                        <Link
+                            to={`/games/${game.id}/edit`}
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+                        >
+                            Edit Game
+                        </Link>
+                        <button
+                            onClick={handleDelete}
+                            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+                        >
+                            Delete Game
+                        </button>
+                    </div>
                 </article>
             ) : (<p className="text-red-500">No game found.</p>)}
         </>
