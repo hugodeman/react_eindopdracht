@@ -2,10 +2,10 @@ import {createBrowserRouter, RouterProvider} from 'react-router';
 
 import Layout from "./Layout.jsx";
 import Home from "./Home.jsx";
-import Games from "./Games.jsx";
-import CreateGame from "./CreateGame.jsx";
-import GameDetail from "./GameDetail.jsx";
-import EditGame from "./EditGame.jsx";
+import Games from "./games/Games.jsx";
+import CreateGame from "./games/CreateGame.jsx";
+import GameDetail from "./games/GameDetail.jsx";
+import EditGame from "./games/EditGame.jsx";
 
 const router = createBrowserRouter([{
     element: <Layout />,
@@ -46,5 +46,3 @@ function App() {
 export default App
 
 // filters,
-// patch,
-// pagination,

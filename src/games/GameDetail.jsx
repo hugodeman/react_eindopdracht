@@ -1,4 +1,4 @@
-import {Link, useNavigate, useParams, useResolvedPath, useRoutes} from "react-router";
+import {Link, useNavigate, useParams} from "react-router";
 import {useEffect, useState} from "react";
 
 function GameDetail () {
@@ -52,6 +52,29 @@ function GameDetail () {
         });
     }
 
+    async function toggleFavorite() {
+        try {
+            const response = await fetch(`http://145.24.223.147:8000/games/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+            console.log('Favorite updated:', data);
+
+            setGame(prevGame => ({
+                ...prevGame,
+                favorite: data.favorite
+            }));
+
+        } catch (error) {
+            console.error('Error updating favorite status:', error);
+        }
+    }
+
     return(
         <>
             {game ? (
@@ -78,6 +101,14 @@ function GameDetail () {
                                     <h2 className="text-xl font-semibold text-gray-700">Release Date:</h2>
                                     <p className="text-gray-600">{game.release_date}</p>
                                 </div>
+                                <button
+                                    onClick={toggleFavorite}
+                                    className={`mt-2 px-4 py-2 rounded ${
+                                        game.favorite ? 'bg-red-500' : 'bg-gray-300'
+                                    } text-white`}
+                                >
+                                    {game.favorite ? '❤️ Unfavorite' : '🤍 Like'}
+                                </button>
                             </div>
                         </div>
                     </div>
