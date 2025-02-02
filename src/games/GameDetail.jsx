@@ -40,7 +40,6 @@ function GameDetail () {
 
             const data = await response.json();
             console.log(data)
-            navigate('/games')
         } catch (error) {
             console.error('Fout bij het ophalen van het product:', error);
         }
@@ -65,6 +64,7 @@ function GameDetail () {
             const data = await response.json();
             console.log('Favorite updated:', data);
 
+            // update state van vorige data
             setGame(prevGame => ({
                 ...prevGame,
                 favorite: data.favorite

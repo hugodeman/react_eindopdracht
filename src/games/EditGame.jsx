@@ -70,7 +70,7 @@ function EditGame() {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Voorkomt pagina-herladen
+        event.preventDefault();
         console.log('Formulier verzonden:', formData);
 
         await editGame()

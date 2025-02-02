@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 
 function Games(){
     const [games,setGames] = useState([])
-    // const showGames = games.map((game) => (<Game key={game.id} game={game}/>))
 
     const [searchTerm, setSearchTerm] = useState("");
     const [filter, setFilter] = useState('all');

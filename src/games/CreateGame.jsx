@@ -22,7 +22,7 @@ function CreateGame(){
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Voorkomt pagina-herladen
+        event.preventDefault();
         console.log('Formulier verzonden:', formData);
 
         await createGame(formData);
